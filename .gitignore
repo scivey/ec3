@@ -7,4 +7,6 @@ dist
 *.egg-info
 *.sublime-workspace
 .env
+tags
+.tags
 

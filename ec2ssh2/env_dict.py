@@ -1,6 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function, unicode_literals
+from __future__ import integer_division
+
 import os
+
 from ec2ssh2.util import AttrDict
 from ec2ssh2 import compat
+
 
 class EnvDict(AttrDict):
     def __init__(self, defaults=None, **kwarg_defaults):

@@ -1,4 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function, unicode_literals
+from __future__ import integer_division
+
 import sys
+
 if sys.version_info[0] < 3:
     IS_PYTHON_2 = True
 else:
@@ -10,10 +17,12 @@ def iteritems(thing):
         return thing.iteritems()
     return thing.items()
 
+
 def iterkeys(thing):
     if IS_PYTHON_2:
         return thing.iterkeys()
     return thing.keys()
+
 
 def list_keys(thing):
     if IS_PYTHON_2:

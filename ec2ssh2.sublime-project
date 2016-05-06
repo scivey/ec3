@@ -3,7 +3,11 @@
 	[
 		{
 			"path": ".",
-            "folder_exclude_patterns": ".env"
+            "folder_exclude_patterns": [".env", "dist", "*.egg-info"],
+            "file_exclude_patterns": ["tags", ".tags"]
 		}
-	]
+	],
+    "settings": {
+        "python_executable": "./env/bin/python"
+    }
 }

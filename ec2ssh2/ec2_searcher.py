@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function, unicode_literals
+from __future__ import integer_division
+
 import boto3
 from ec2ssh2 import compat
 
@@ -15,6 +21,7 @@ def make_tag_filters(tag_dict):
             'Values': tag_vals
         })
     return filters
+
 
 class EC2Searcher(object):
     @property
@@ -37,4 +44,3 @@ class EC2Searcher(object):
                 'Values': vpc_scopes
             })
         return self.ec2_conn.instances.filter(Filters=filters).all()
-

@@ -1,5 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function, unicode_literals
+from __future__ import integer_division
+
 import copy
 from ec2ssh2 import compat, exceptions
+
 
 class AttrDict(dict):
     def __getattr__(self, key):
@@ -7,8 +14,6 @@ class AttrDict(dict):
             return self.__dict__[key]
         elif key in self:
             return self[key]
-        else:
-            print self
         raise AttributeError(key)
 
 

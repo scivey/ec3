@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function, unicode_literals
+from __future__ import integer_division
+
 from ec2ssh2.env_dict import EnvDict
 from ec2ssh2.util import ConstantDict
 from ec2ssh2 import exceptions
@@ -8,6 +14,7 @@ DEFAULTS = ConstantDict(
     EC2SSH2_KEY_FILE_PATH=None,
     EC2SSH2_REMOTE_USER='ubuntu'
 )
+
 
 def parse_tag_filters(tag_str):
     tags = {}
@@ -20,7 +27,8 @@ def parse_tag_filters(tag_str):
             try:
                 key, val = piece.split('=')
             except ValueError:
-                raise exceptions.InvalidInput(tag_str,
+                raise exceptions.InvalidInput(
+                    tag_str,
                     "EC2SSH2_TAG_FILTERS should be formatted as: 'key1=val1,key2=val2"
                 )
             key = key.strip()
@@ -54,4 +62,3 @@ class Config(object):
     @property
     def key_file_path(self):
         return self.env.EC2SSH2_KEY_FILE_PATH
-
