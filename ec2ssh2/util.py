@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, unicode_literals
-from __future__ import integer_division
 
 import copy
 from ec2ssh2 import compat, exceptions
@@ -48,3 +47,7 @@ class ConstantDict(dict):
 
     def __setitem__(self, key, val):
         raise exceptions.UnsupportedMethod("ConstantDict is immutable.")
+
+
+def is_iterator(x):
+    return hasattr(x, 'next') and hasattr(x.next, '__call__')

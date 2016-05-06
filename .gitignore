@@ -1,6 +1,7 @@
 *.pyc
 build
 dist
+tmp
 *.tmp
 *.log
 *~
@@ -9,4 +10,5 @@ dist
 .env
 tags
 .tags
-
+.cache
+__pycache__
