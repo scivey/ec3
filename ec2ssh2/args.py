@@ -78,7 +78,7 @@ def make_parser():
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
-        'tags', action='append', nargs='*',
+        '--tags', action='append', nargs='*',
         help='additional tag filters, formatted as "key1=val1 key2=val2"')
 
     parser.add_argument('--vpc', dest='vpc_scope',
@@ -102,6 +102,9 @@ def get_args():
     parser = make_parser()
     args = parser.parse_args()
     tags = {}
+    print(args)
+    if args.tags is None:
+        args.tags = [[]]
     for key_val in args.tags[0]:
         tags.update(parse_tag_filters(key_val))
     return ParsedArgs(

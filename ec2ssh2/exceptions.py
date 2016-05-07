@@ -11,6 +11,7 @@ class EC2SSH2Exception(Exception):
 class InvalidInput(EC2SSH2Exception):
     pass
 
+
 class UnsupportedMethod(EC2SSH2Exception):
     pass
 
