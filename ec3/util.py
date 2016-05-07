@@ -51,3 +51,7 @@ class ConstantDict(dict):
 
 def is_iterator(x):
     return hasattr(x, 'next') and hasattr(x.next, '__call__')
+
+
+def get_tags(instance):
+    return {tag['Key']: tag['Value'] for tag in instance.tags}
