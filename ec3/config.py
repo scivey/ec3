@@ -3,17 +3,17 @@
 
 from __future__ import print_function, unicode_literals
 
-from ec2ssh2.env_dict import EnvDict
-from ec2ssh2.util import ConstantDict
-from ec2ssh2.args import get_args, parse_tag_filters
-from ec2ssh2 import compat
+from ec3.env_dict import EnvDict
+from ec3.util import ConstantDict
+from ec3.args import get_args, parse_tag_filters
+from ec3 import compat
 
 DEFAULTS = ConstantDict(
-    EC2SSH2_VPC_SCOPE=None,
-    EC2SSH2_TAG_FILTERS='',
-    EC2SSH2_KEY_FILE_PATH=None,
-    EC2SSH2_REMOTE_USER='ubuntu',
-    EC2SSH2_ENABLE_LOGGING=False
+    EC3_VPC_SCOPE=None,
+    EC3_TAG_FILTERS='',
+    EC3_KEY_FILE_PATH=None,
+    EC3_REMOTE_USER='ubuntu',
+    EC3_ENABLE_LOGGING=False
 )
 
 
@@ -32,7 +32,7 @@ class Config(object):
             # doing this lazily would make InvalidInput
             # exceptions more confusing
             tag_filters.update(parse_tag_filters(
-                env.EC2SSH2_TAG_FILTERS
+                env.EC3_TAG_FILTERS
             ))
 
         # command-line args have precedence
@@ -49,7 +49,7 @@ class Config(object):
         if self.args.vpc_scope:
             return self.args.vpc_scope
         elif not self.args.escape_env:
-            return self.env.EC2SSH2_VPC_SCOPE
+            return self.env.EC3_VPC_SCOPE
         return ''
 
     @property
@@ -57,7 +57,7 @@ class Config(object):
         if self.args.user:
             return self.args.user
         elif not self.args.escape_env:
-            return self.env.EC2SSH2_REMOTE_USER
+            return self.env.EC3_REMOTE_USER
         return ''
 
     @property
@@ -65,7 +65,7 @@ class Config(object):
         if self.args.key_file_path:
             return self.args.key_file_path
         elif not self.args.escape_env:
-            return self.env.EC2SSH2_KEY_FILE_PATH
+            return self.env.EC3_KEY_FILE_PATH
         return ''
 
     def __repr__(self):

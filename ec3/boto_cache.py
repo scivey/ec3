@@ -9,9 +9,8 @@ partial = lambda func, arg: lambda *args, **kwargs: func(arg, *args, **kwargs)
 openable = partial(thunk, open)
 
 
-import time
+import pickle
 import boto3
-import os
 from collections import namedtuple
 
 
@@ -91,6 +90,4 @@ class BotoCache(Loadable):
                     vpcs.append(VPC(id=tag['ResourceId'], name=tag['Value']))
         return cls(tag_pairs=instance_tags, vpcs=vpcs, cache_dir=cache_dir)
 
-    @classmethod
-    def get_or_create(cls, cache_dir='./.ec2ssh2_cache'):
-        if
+

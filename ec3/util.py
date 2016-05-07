@@ -4,7 +4,7 @@
 from __future__ import print_function, unicode_literals
 
 import copy
-from ec2ssh2 import compat, exceptions
+from ec3 import compat, exceptions
 
 
 class AttrDict(dict):

@@ -4,8 +4,8 @@
 from __future__ import print_function, unicode_literals
 
 import unittest
-from ec2ssh2.util import is_iterator
-from ec2ssh2 import compat
+from ec3.util import is_iterator
+from ec3 import compat
 
 
 class TestCompat(unittest.TestCase):

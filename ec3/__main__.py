@@ -3,5 +3,5 @@
 
 from __future__ import print_function, unicode_literals
 
-import ec2ssh2.main
-ec2ssh2.main.main()
+import ec3.main
+ec3.main.main()

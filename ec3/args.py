@@ -5,7 +5,7 @@ from __future__ import print_function, unicode_literals
 
 from collections import namedtuple
 import argparse
-from ec2ssh2 import exceptions
+from ec3 import exceptions
 
 def parse_tag_filters(tag_str):
     tags = {}
@@ -34,7 +34,7 @@ def parse_tag_filters(tag_str):
 
 
 ParsedArgs = namedtuple('ParsedArgs', [
-    'tags', 'vpc_scope', 'escape_env', 'user', 'key_file_path'
+    'tags', 'command', 'vpc_scope', 'escape_env', 'user', 'key_file_path'
 ])
 
 
@@ -44,27 +44,27 @@ SSH into ec2 instances.
 
 
 To filter by VPC:
-        export EC2SSH2_VPC_SCOPE=vpc-id-41245
+        export EC3_VPC_SCOPE=vpc-id-41245
     or pass:
-        ec2ssh2 --vpc vpc-id-41245
+        ec3 --vpc vpc-id-41245
 
 
 To specify user:
-        export EC2SSH2_REMOTE_USER=username
+        export EC3_REMOTE_USER=username
     or pass:
-        ec2ssh2 -u username
+        ec3 -u username
 
 
 To specify an SSH key:
-        export EC2SSH2_KEY_FILE_PATH="/home/you/.ssh/id_rsa"
+        export EC3_KEY_FILE_PATH="/home/you/.ssh/id_rsa"
     or pass:
-        ec2ssh2 -i /home/you/.ssh/id_rsa
+        ec3 -i /home/you/.ssh/id_rsa
 
 
 To filter by instance tags:
-        export EC2SSH2_TAG_FILTERS=key1:val1,key2:val2
+        export EC3_TAG_FILTERS=key1:val1,key2:val2
     or pass:
-        ec2ssh2 --tags key1:val1 key2:val2 key3:val3
+        ec3 --tags key1:val1 key2:val2 key3:val3
     Note that tag filters passed on the command line are
     *combined with* any tags specified by environment
     variable.
@@ -76,6 +76,9 @@ def make_parser():
     parser = argparse.ArgumentParser(
         description=HELP,
         formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument(
+        'command', help='command {ssh, shell}'
     )
     parser.add_argument(
         '--tags', action='append', nargs='*',
@@ -102,12 +105,12 @@ def get_args():
     parser = make_parser()
     args = parser.parse_args()
     tags = {}
-    print(args)
     if args.tags is None:
         args.tags = [[]]
     for key_val in args.tags[0]:
         tags.update(parse_tag_filters(key_val))
     return ParsedArgs(
+        command=args.command,
         vpc_scope=args.vpc_scope,
         escape_env=args.escape_env,
         user=args.user,

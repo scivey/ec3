@@ -1,5 +1,5 @@
 import unittest
-from ec2ssh2.util import ConstantDict, AttrDict
+from ec3.util import ConstantDict, AttrDict
 
 class TestConstantDict(unittest.TestCase):
     def test_func_val(self):

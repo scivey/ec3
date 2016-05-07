@@ -4,7 +4,7 @@
 from __future__ import print_function, unicode_literals
 
 import boto3
-from ec2ssh2 import compat
+from ec3 import compat
 
 
 def make_tag_filters(tag_dict):

@@ -4,8 +4,8 @@
 from __future__ import print_function, unicode_literals
 
 import unittest
-from ec2ssh2.config import parse_tag_filters
-from ec2ssh2 import exceptions
+from ec3.config import parse_tag_filters
+from ec3 import exceptions
 
 
 class TestConfig(unittest.TestCase):

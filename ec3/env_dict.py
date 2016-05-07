@@ -5,8 +5,8 @@ from __future__ import print_function, unicode_literals
 
 import os
 
-from ec2ssh2.util import AttrDict
-from ec2ssh2 import compat
+from ec3.util import AttrDict
+from ec3 import compat
 
 
 class EnvDict(AttrDict):

@@ -5,7 +5,7 @@ from __future__ import print_function, unicode_literals
 
 import unittest
 import mock
-from ec2ssh2.env_dict import EnvDict
+from ec3.env_dict import EnvDict
 
 
 class TestEnvDict(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestEnvDict(unittest.TestCase):
         def getter(key):
             return self.environ.get(key, None)
         get_env = mock.patch(
-            'ec2ssh2.env_dict.EnvDict._get_env',
+            'ec3.env_dict.EnvDict._get_env',
             side_effect=getter
         )
         get_env.start()
