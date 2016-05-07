@@ -25,7 +25,7 @@ if __name__ == '__main__':
     ))
     for instance in instances:
         name = get_tags(instance).get('Name', 'NO NAME')
-        print(name, instance.instance_id, instance.public_dns_name)
+        # print(name, instance.instance_id, instance.public_dns_name)
     if not instances:
         raise exceptions.NoInstancesFound()
     instance = random.choice(instances)

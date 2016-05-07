@@ -6,6 +6,7 @@ from __future__ import print_function, unicode_literals
 from ec2ssh2.env_dict import EnvDict
 from ec2ssh2.util import ConstantDict
 from ec2ssh2.args import get_args, parse_tag_filters
+from ec2ssh2 import compat
 
 DEFAULTS = ConstantDict(
     EC2SSH2_VPC_SCOPE=None,
@@ -69,5 +70,5 @@ class Config(object):
     def __repr__(self):
         attrs = ('vpc_scope', 'remote_user', 'key_file_path')
         result = {attr: getattr(self, attr) for attr in attrs}
-        result['tag_filters'] = {k: v for k, v in self.tag_filters.iteritems()}
+        result['tag_filters'] = {k: v for k, v in compat.iteritems(self.tag_filters)}
         return repr(result)
