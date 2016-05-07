@@ -16,7 +16,8 @@ def get_tags(instance):
 
 
 if __name__ == '__main__':
-    conf = Config()
+    conf = Config.create()
+    print(conf)
     searcher = EC2Searcher()
     instances = list(searcher.search(
         tags=conf.tag_filters,
