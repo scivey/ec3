@@ -12,3 +12,5 @@ tags
 .tags
 .cache
 __pycache__
+.ec3-cache
+

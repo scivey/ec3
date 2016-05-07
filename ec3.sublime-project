@@ -4,7 +4,7 @@
 		{
 			"path": ".",
             "folder_exclude_patterns": [
-                ".env", "dist", "*.egg-info", ".cache", "__pycache__"
+                ".env", "dist", "*.egg-info", ".cache", "__pycache__", ".ec3-cache"
             ],
             "file_exclude_patterns": ["tags", ".tags"]
 		}

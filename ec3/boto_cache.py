@@ -8,9 +8,10 @@ thunk = lambda func, *args, **kwargs: func(*args, **kwargs)
 partial = lambda func, arg: lambda *args, **kwargs: func(arg, *args, **kwargs)
 openable = partial(thunk, open)
 
-
+import time
 import pickle
 import boto3
+import os
 from collections import namedtuple
 
 
@@ -49,18 +50,21 @@ def mkfilter(name, *vals):
 Tag = namedtuple('Tag', ['key', 'value'])
 VPC = namedtuple('VPC', ['id', 'name'])
 
+CACHE_DIR = './.ec3-cache'
 
 class BotoCache(Loadable):
-    def __init__(self, tag_pairs, vpcs, created_time, cache_dir):
+    def __init__(self, tag_pairs, vpcs, created_time, cache_path):
         self._tag_pairs = tag_pairs
         self._vpcs = vpcs
         self._created_time = created_time
-        self._cache_dir = cache_dir
+        self._cache_path = cache_path
 
     def to_dict(self):
         return {
             'tag_pairs': self._tag_pairs,
-            'vpcs': self._vpcs
+            'vpcs': self._vpcs,
+            'created_time': self._created_time,
+            'cache_path': self._cache_path
         }
 
     @classmethod
@@ -73,7 +77,7 @@ class BotoCache(Loadable):
         ]
 
     @classmethod
-    def _initialize(cls, cache_dir):
+    def _initialize(cls, cache_path):
         conn = boto3.client('ec2')
         filters = []
         filters.append(mkfilter(
@@ -88,6 +92,24 @@ class BotoCache(Loadable):
                 assert tag['ResourceType'] == 'vpc'
                 if tag['Key'] == 'Name':
                     vpcs.append(VPC(id=tag['ResourceId'], name=tag['Value']))
-        return cls(tag_pairs=instance_tags, vpcs=vpcs, cache_dir=cache_dir)
+        return cls(
+            tag_pairs=instance_tags,
+            vpcs=vpcs,
+            cache_path=cache_path,
+            created_time=time.time()
+        )
 
+    @classmethod
+    def get_or_create(cls, cache_path=os.path.join(CACHE_DIR, 'boto_cache.pickle')):
+        if os.path.exists(cache_path):
+            return cls.load(cache_path)
+        new_instance = cls._initialize(cache_path)
+        new_instance.save()
+        return new_instance
 
+    def save(self, cache_path=None):
+        cache_path = cache_path or self._cache_path
+        cache_dir = os.path.dirname(cache_path)
+        if not os.path.exists(cache_dir):
+            os.mkdir(cache_dir)
+        super(BotoCache, self).save(cache_path or self._cache_path)
