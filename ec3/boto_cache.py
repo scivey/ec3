@@ -71,10 +71,8 @@ class BotoCache(Loadable):
     def from_dict(cls, data):
         return cls(**data)
 
-    def list_tags(self):
-        return [
-            tuple(pair) for pair in self._tag_pairs
-        ]
+    def iter_tags(self):
+        return iter(self._tag_pairs)
 
     @classmethod
     def _initialize(cls, cache_path):

@@ -5,12 +5,12 @@ from __future__ import print_function, unicode_literals
 
 from ec3.config import Config
 from ec3 import exceptions
-from ec3.main_shell import main_shell
+# from ec3.main_shell import main_shell
 from ec3.main_ssh import main_ssh
 
 FUNC_MAP = {
-    'ssh': main_ssh,
-    'shell': main_shell
+    'ssh': main_ssh
+    # 'shell': main_shell
 }
 
 def main():
