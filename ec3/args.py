@@ -46,25 +46,25 @@ SSH into ec2 instances.
 To filter by VPC:
         export EC3_VPC_SCOPE=vpc-id-41245
     or pass:
-        ec3 --vpc vpc-id-41245
+        ec3 ssh --vpc vpc-id-41245
 
 
 To specify user:
         export EC3_REMOTE_USER=username
     or pass:
-        ec3 -u username
+        ec3 ssh -u username
 
 
 To specify an SSH key:
         export EC3_KEY_FILE_PATH="/home/you/.ssh/id_rsa"
     or pass:
-        ec3 -i /home/you/.ssh/id_rsa
+        ec3 ssh -i /home/you/.ssh/id_rsa
 
 
 To filter by instance tags:
-        export EC3_TAG_FILTERS=key1:val1,key2:val2
+        export EC3_TAG_FILTERS=key1=val1,key2=val2
     or pass:
-        ec3 --tags key1:val1 key2:val2 key3:val3
+        ec3 ssh --tags key1=val1 key2=val2 key3=val3
     Note that tag filters passed on the command line are
     *combined with* any tags specified by environment
     variable.
