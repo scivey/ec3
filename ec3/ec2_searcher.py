@@ -23,10 +23,13 @@ def make_tag_filters(tag_dict):
 
 
 class EC2Searcher(object):
+    def __init__(self, **boto_kwargs):
+        self.boto_kwargs = boto_kwargs
+
     @property
     def ec2_conn(self):
         if not hasattr(self, '_ec2_conn'):
-            self._ec2_conn = boto3.resource('ec2')
+            self._ec2_conn = boto3.resource('ec2', **self.boto_kwargs)
         return self._ec2_conn
 
     def search(self, tags=None, only_running=True, vpc_scopes=None):
